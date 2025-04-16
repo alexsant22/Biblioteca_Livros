@@ -26,7 +26,6 @@ public class Emprestimo implements Serializable {
     // Relacionamento com Cliente
     @ManyToOne // N --- 1
     @JoinColumn(name = "idCliente", referencedColumnName = "idCliente")
-    @JsonManagedReference
     private Cliente cliente;
 
     // Relacionamento com Livro

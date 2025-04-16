@@ -26,7 +26,7 @@ public class Cliente implements Serializable {
 
     // Relacionamento entre entidades
     @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
+    @JsonIgnore
     private Set<Emprestimo> emprestimo;
     // estrutura Set tem o mesmo funcionamento do List, porém evitando a duplicidade de valores
 

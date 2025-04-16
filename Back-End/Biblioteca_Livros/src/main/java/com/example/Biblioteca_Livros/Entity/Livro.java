@@ -1,6 +1,7 @@
 package com.example.Biblioteca_Livros.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Livro implements Serializable {
 
     // Relacionamento de entidades
     @ManyToMany(mappedBy = "livros") // N --- N
+    @JsonIgnore
     private Set<Emprestimo> emprestimo;
 
     public Livro(Long idLivro, String nomeLivro, String autor, int ISBN, String genero) {
