@@ -6,11 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Livro {
+public class Livro implements Serializable {
     // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +27,6 @@ public class Livro {
     private String genero;
 
     // Relacionamento de entidades
-    @ManyToOne // N --- 1
-    @JoinColumn(name = "idEmprestimo", referencedColumnName = "idEmprestimo")
-    @JsonBackReference
-    private Emprestimo emprestimo;
+    @ManyToMany(mappedBy = "livros") // N --- N
+    private Set<Emprestimo> emprestimo;
 }
