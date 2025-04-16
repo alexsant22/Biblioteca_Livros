@@ -14,27 +14,6 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    // Cliente para ClienteDTO
-    public ClienteDTO toDTO(Cliente cliente) {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setIdCliente(cliente.getIdCliente());
-        clienteDTO.setNomeCliente(cliente.getNomeCliente());
-        clienteDTO.setSobrenomeCliente(cliente.getSobrenomeCliente());
-        clienteDTO.setCpf(cliente.getCpf());
-
-        return clienteDTO;
-    }
-
-    // ClienteDTO para Cliente
-    public Cliente fromDTO(ClienteDTO clienteDTO) {
-        Cliente cliente = new Cliente();
-        cliente.setNomeCliente(clienteDTO.getNomeCliente());
-        cliente.setSobrenomeCliente(clienteDTO.getSobrenomeCliente());
-        cliente.setCpf(clienteDTO.getCpf());
-
-        return cliente;
-    }
-
     // Buscar todos
     public List<Cliente> getAll() {
         return repository.findAll();
@@ -45,7 +24,8 @@ public class ClienteService {
         Optional<Cliente> optionalCliente = repository.findById(id);
 
         if (optionalCliente.isPresent()) {
-            return Optional.of(this.toDTO(optionalCliente.get()));
+            ClienteDTO produtoDTO = new ClienteDTO();
+            return Optional.of(produtoDTO.fromClienteDTO(optionalCliente.get()));
         } else {
             return Optional.empty();
         }
@@ -53,10 +33,10 @@ public class ClienteService {
 
     // Create / Save
     public ClienteDTO save(ClienteDTO clienteDTO) {
-        Cliente cliente = this.fromDTO(clienteDTO);
-        Cliente clienteBd = repository.save(cliente);
+        Cliente cliente = clienteDTO.toCliente();
+        cliente = repository.save(cliente);
 
-        return this.toDTO(clienteBd);
+        return clienteDTO.fromClienteDTO(cliente);
     }
 
     // Update
@@ -68,10 +48,11 @@ public class ClienteService {
 
             cliente.setNomeCliente(clienteDTO.getNomeCliente());
             cliente.setSobrenomeCliente(clienteDTO.getSobrenomeCliente());
+            cliente.setCpf(clienteDTO.getCpf());
 
-            Cliente clienteAtt = repository.save(cliente);
+            cliente = repository.save(cliente);
 
-            return Optional.of(this.toDTO(clienteAtt));
+            return Optional.of(clienteDTO.fromClienteDTO(cliente));
         } else {
             return Optional.empty();
         }
