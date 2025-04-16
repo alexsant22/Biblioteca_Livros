@@ -22,11 +22,19 @@ public class Livro implements Serializable {
     private String autor;
 
     @Column(unique = true) // Faz esse atributo ser unico na tabela
-    private String isbn;
+    private int ISBN;
 
     private String genero;
 
     // Relacionamento de entidades
     @ManyToMany(mappedBy = "livros") // N --- N
     private Set<Emprestimo> emprestimo;
+
+    public Livro(Long idLivro, String nomeLivro, String autor, int ISBN, String genero) {
+        this.idLivro = idLivro;
+        this.nomeLivro = nomeLivro;
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.genero = genero;
+    }
 }

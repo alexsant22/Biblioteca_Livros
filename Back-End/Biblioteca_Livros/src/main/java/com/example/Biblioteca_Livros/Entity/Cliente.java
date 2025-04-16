@@ -29,4 +29,11 @@ public class Cliente implements Serializable {
     @JsonBackReference
     private Set<Emprestimo> emprestimo;
     // estrutura Set tem o mesmo funcionamento do List, porém evitando a duplicidade de valores
+
+    public Cliente(Long idCliente, String nomeCliente, String sobrenomeCliente, String cpf) {
+        this.idCliente = idCliente;
+        this.nomeCliente = nomeCliente;
+        this.sobrenomeCliente = sobrenomeCliente;
+        this.cpf = cpf;
+    }
 }
