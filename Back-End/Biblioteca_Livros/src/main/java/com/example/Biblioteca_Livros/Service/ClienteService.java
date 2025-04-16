@@ -32,7 +32,7 @@ public class ClienteService {
     }
 
     // Create / Save
-    public ClienteDTO save(ClienteDTO clienteDTO) {
+    public ClienteDTO create(ClienteDTO clienteDTO) {
         Cliente cliente = clienteDTO.toCliente();
         cliente = repository.save(cliente);
 
